@@ -2,7 +2,8 @@ from __future__ import print_function
 from pynput import mouse
 from pynput import keyboard
 import threading
-import ctypes, sys
+import ctypes
+import sys
 import time
 import datetime
 import pyautogui
@@ -27,7 +28,7 @@ import os
 
 """
 ①场地界面在左边，cmd窗口右边
-②修改标签内容：目标时间、任务栏微信位置、第二天位置、场地位置     
+②修改标签内容：目标时间、任务栏微信位置、第二天位置、场地位置
 ③检查第二天识别的灰色区域是否被占用
 ④检查是否在左上角位置，左滑上滑滑轮到顶
 ④cmd命令：
@@ -54,6 +55,8 @@ import os
 高峰时期需要提前?s点击，测试记录每天抢的时间差：从点击第二天位置开始到页面刷新的两个时间
 
 """
+
+
 def click():
     # 将要运行的代码加到这里
     def get_color(image_path):
@@ -71,11 +74,14 @@ def click():
 
     def wait_time():
         current_time = datetime.datetime.now()
-        target_time = datetime.datetime(current_time.year, current_time.month, current_time.day, 9, 59, 59)
+        target_time = datetime.datetime(
+            current_time.year, current_time.month, current_time.day, 9, 59, 59)
         if current_time < target_time:
             time_difference = target_time - current_time
             seconds_to_wait = time_difference.total_seconds()
             return seconds_to_wait
+        else:
+            return 0
 
     M = mouse.Controller()
 
@@ -119,14 +125,19 @@ def click():
             img_0 = pyautogui.screenshot(region=(764, 300, 100, 20))  # 橙色字体区域
             # img_1 = pyautogui.screenshot(region=(933, 380, 10, 10))  # 灰色字体区域（2号场地第一场）
             # img_1 = pyautogui.screenshot(region=(933, 470, 10, 10))  # 灰色字体区域（2号场地第二场）
-            img_1 = pyautogui.screenshot(region=(933, 796, 10, 10))  # 灰色字体区域（2号场地第五场）
+            img_1 = pyautogui.screenshot(
+                region=(933, 796, 10, 10))  # 灰色字体区域（2号场地第五场）
 
-            img_0.save('C:\\Users\\bo\\Desktop\\ultimate_version\\2_tu\\screenshot_0_{}.jpg'.format(i))
-            img_1.save('C:\\Users\\bo\\Desktop\\ultimate_version\\2_tu\\screenshot_1_{}.jpg'.format(i))
+            img_0.save(
+                '/Users/sammul/learning/badminton_scripts/images/screenshot_0_{}.jpg'.format(i))
+            img_1.save(
+                '/Users/sammul/learning/badminton_scripts/images/screenshot_1_{}.jpg'.format(i))
             print(f"第一个界面已经截图第{i}次")
-            img_0_path = "C:\\Users\\bo\\Desktop\\ultimate_version\\2_tu\\screenshot_0_{}.jpg".format(i)  # 橙色区域
-            img_1_path = "C:\\Users\\bo\\Desktop\\ultimate_version\\2_tu\\screenshot_1_{}.jpg".format(i)  # 灰色区域
-
+            # 橙色区域
+            img_0_path = "/Users/sammul/learning/badminton_scripts/images/screenshot_0_{}.jpg".format(
+                i)
+            # 灰色区域
+            img_1_path = "/Users/sammul/learning/badminton_scripts/images/screenshot_1_{}.jpg".format(i)
             # 返回图片颜色的平均RGB三色数值
 
             color_0 = get_color(img_0_path)
@@ -191,9 +202,11 @@ def click():
         for i in range(200):
             time.sleep(0.01)
             img = pyautogui.screenshot(region=(963, 896, 30, 20))
-            img.save('C:\\Users\\bo\\Desktop\\ultimate_version\\2_tu\\screenshot_2_{}.jpg'.format(i))
+            img.save(
+                'C:\\Users\\bo\\Desktop\\ultimate_version\\2_tu\\screenshot_2_{}.jpg'.format(i))
             print(f"第二个界面已经截图第{i}次")
-            img_path = "C:\\Users\\bo\\Desktop\\ultimate_version\\2_tu\\screenshot_2_{}.jpg".format(i)  # 要找的大图
+            img_path = "C:\\Users\\bo\\Desktop\\ultimate_version\\2_tu\\screenshot_2_{}.jpg".format(
+                i)  # 要找的大图
 
             # 返回图片颜色的平均RGB三色数值
 
@@ -224,9 +237,11 @@ def click():
                 time.sleep(0.02)
                 img = pyautogui.screenshot(region=(871, 631, 20, 5))
 
-                img.save('C:\\Users\\bo\\Desktop\\ultimate_version\\2_tu\\screenshot_3_{}.jpg'.format(i))
+                img.save(
+                    'C:\\Users\\bo\\Desktop\\ultimate_version\\2_tu\\screenshot_3_{}.jpg'.format(i))
                 print(f"第三个界面已经截图第{i}次")
-                img_path = "C:\\Users\\bo\\Desktop\\ultimate_version\\2_tu\\screenshot_3_{}.jpg".format(i)  # 要找的大图
+                img_path = "C:\\Users\\bo\\Desktop\\ultimate_version\\2_tu\\screenshot_3_{}.jpg".format(
+                    i)  # 要找的大图
 
                 color = get_color(img_path)
                 print(f"第三次color的RGB三色数值为：{color}\n")

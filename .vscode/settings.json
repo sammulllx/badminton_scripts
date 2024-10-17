@@ -1,0 +1,8 @@
+// {
+//     "[python]": {
+//         "editor.defaultFormatter": null,
+//         "editor.formatOnSave": true,
+//         "editor.wordWrap": "off", // 启用自动换行
+//         "editor.wordWrapColumn": 100 // 设定换行列，默认为100列
+//     }
+// }
